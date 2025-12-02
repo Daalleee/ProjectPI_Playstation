@@ -24,11 +24,12 @@ class UnitPSController extends Controller
             $query->where('brand', $request->brand);
         }
 
-        // Search by name
+        // Search by name or keywords (Semantic Search)
         if ($request->filled('q')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->q . '%')
-                    ->orWhere('model', 'like', '%' . $request->q . '%');
+                    ->orWhere('model', 'like', '%' . $request->q . '%')
+                    ->orWhere('keywords', 'like', '%' . $request->q . '%');
             });
         }
 

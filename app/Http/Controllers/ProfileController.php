@@ -57,4 +57,20 @@ class ProfileController extends Controller
 
         return back()->with('success', 'Profil berhasil diperbarui!');
     }
+
+    /**
+     * Delete the user's avatar.
+     */
+    public function deleteAvatar()
+    {
+        $user = Auth::user();
+
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+            $user->update(['avatar' => null]);
+            return back()->with('success', 'Foto profil berhasil dihapus!');
+        }
+
+        return back()->with('error', 'Tidak ada foto untuk dihapus.');
+    }
 }

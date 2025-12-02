@@ -85,10 +85,21 @@ Route::get('/auth', function () {
     return redirect()->route('login.show');
 })->name('login');
 
-Route::middleware(['web', 'auth'])->group(function () {
+Route::get('lang/{locale}', function ($locale) {
+    \Illuminate\Support\Facades\Log::info('Language Switcher: Requested ' . $locale);
+    if (in_array($locale, ['en', 'id'])) {
+        \Illuminate\Support\Facades\Session::put('locale', $locale);
+        \Illuminate\Support\Facades\Session::save();
+        \Illuminate\Support\Facades\Log::info('Language Switcher: Session set to ' . $locale);
+    }
+    return back();
+})->name('lang.switch');
+
+Route::middleware(['auth'])->group(function () {
     // Unified Profile Routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.delete');
 
     // Admin - Pelanggan
     Route::resource('admin/pelanggan', PelangganController::class)->parameters([
@@ -178,6 +189,8 @@ Route::middleware(['web', 'auth'])->group(function () {
         ->name('pelanggan.rentals.store');
     Route::get('pelanggan/rentals/{rental}', [PelangganRentalController::class, 'show'])->name('pelanggan.rentals.show');
     Route::post('pelanggan/rentals/{rental}/return', [PelangganRentalController::class, 'returnRental'])->name('pelanggan.rentals.return');
+    Route::get('pelanggan/rentals/{rental}/continue-payment', [PelangganRentalController::class, 'continuePayment'])->name('pelanggan.rentals.continue-payment');
+    Route::post('pelanggan/rentals/{rental}/cancel', [PelangganRentalController::class, 'cancel'])->name('pelanggan.rentals.cancel');
 });
 
 Route::middleware(['web', 'auth', 'can:access-pemilik'])->prefix('pemilik')->name('pemilik.')->group(function () {

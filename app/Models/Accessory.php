@@ -17,6 +17,7 @@ class Accessory extends Model
         'harga_per_hari',
         'gambar',
         'kondisi',
+        'keywords',
     ];
 
     public function rentalItems(): MorphMany

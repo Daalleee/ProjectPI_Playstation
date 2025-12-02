@@ -73,5 +73,32 @@ class UpdateImagesSeeder extends Seeder
         foreach ($accessories as $keyword => $url) {
             Accessory::where('nama', 'like', '%' . $keyword . '%')->update(['gambar' => $url]);
         }
+
+        // Fix for DualSense Black to ensure it has a different image
+        Accessory::where('nama', 'like', '%DualSense Controller Black%')->update([
+            'gambar' => 'https://www.retravision.com.au/img/containers/products/7/9/66a737714dcf2_28204005949470-790504f9d17db5b6901e632c4970aebb.jpg/157cda3d983a3f39baa065933972e4db/66a737714dcf2_28204005949470-790504f9d17db5b6901e632c4970aebb.jpg'
+        ]);
+
+        // Fix for Headsets to ensure they have different images
+        Accessory::where('nama', 'like', '%PS5 Pulse 3D Headset%')->update([
+            'gambar' => 'https://m.media-amazon.com/images/I/41x305--otL.jpg'
+        ]);
+
+        Accessory::where('nama', 'like', '%PS4 Gaming Headset%')->update([
+            'gambar' => 'https://row.hyperx.com/cdn/shop/products/hyperx_cloud_flight_ps_1_main.jpg?v=1662421092'
+        ]);
+
+        // Fix for DualShock 4 and Charging Station
+        Accessory::where('nama', 'like', '%DualShock 4 Controller%')->update([
+            'gambar' => 'https://media.gamestop.com/i/gamestop/10150008/Sony-DualShock-4-Wireless-Controller-Call-of-Duty?w=768&h=768&fmt=auto'
+        ]);
+
+        Accessory::where('nama', 'like', '%DualSense Charging Station%')->update([
+            'gambar' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZGKqHcSt3JE6RUFoSTkkWeyrQt3sUxoKL9g&s'
+        ]);
+
+        Accessory::where('nama', 'like', '%Media Remote%')->update([
+            'gambar' => 'https://i.ytimg.com/vi_webp/RGjH9h1zokc/maxresdefault.webp'
+        ]);
     }
 }
