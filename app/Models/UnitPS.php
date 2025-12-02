@@ -30,6 +30,7 @@ class UnitPS extends Model
         'status',
         'created_at',
         'updated_at',
+        'keywords',
     ];
 
     protected $casts = [

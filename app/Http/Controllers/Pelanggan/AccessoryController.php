@@ -19,9 +19,12 @@ class AccessoryController extends Controller
             $query->where('jenis', 'like', '%' . $request->jenis . '%');
         }
 
-        // Search by name
+        // Search by name or keywords (Semantic Search)
         if ($request->filled('q')) {
-            $query->where('nama', 'like', '%' . $request->q . '%');
+            $query->where(function($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->q . '%')
+                  ->orWhere('keywords', 'like', '%' . $request->q . '%');
+            });
         }
 
         $accessories = $query->latest()->paginate(12);

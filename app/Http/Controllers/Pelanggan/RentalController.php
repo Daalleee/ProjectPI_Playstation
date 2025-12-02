@@ -446,12 +446,13 @@ class RentalController extends Controller
             try {
                 $snapToken = $midtrans->createSnapToken($params);
                 
-                // Create payment record with order_id for webhook tracking
+                // Create payment record with order_id and snap_token for webhook tracking
                 \App\Models\Payment::create([
                     'rental_id' => $rental->id,
                     'method' => 'midtrans',
                     'amount' => $totalAmount,
                     'order_id' => $orderId,
+                    'snap_token' => $snapToken,
                     'transaction_status' => 'pending',
                 ]);
                 
@@ -546,5 +547,142 @@ class RentalController extends Controller
         
         return redirect()->route('pelanggan.rentals.show', $rental)
             ->with('status', 'Pengembalian berhasil diajukan. Menunggu konfirmasi dari kasir.');
+    }
+
+    /**
+     * Lanjutkan pembayaran yang tertunda
+     */
+    public function continuePayment(Rental $rental)
+    {
+        Gate::authorize('access-pelanggan');
+        
+        if ($rental->user_id !== auth()->id()) {
+            abort(403);
+        }
+        
+        // Hanya bisa melanjutkan pembayaran jika status pending
+        if ($rental->status !== 'pending') {
+            return redirect()->route('pelanggan.rentals.show', $rental)
+                ->with('error', 'Penyewaan ini tidak dalam status menunggu pembayaran.');
+        }
+        
+        // Cari payment yang pending dengan snap_token
+        $payment = $rental->payments()
+            ->where('transaction_status', 'pending')
+            ->whereNotNull('snap_token')
+            ->latest()
+            ->first();
+        
+        if (!$payment || !$payment->snap_token) {
+            // Jika tidak ada snap token, buat baru
+            try {
+                $midtrans = app(\App\Services\MidtransService::class);
+                
+                // Buat order ID baru
+                $orderId = 'RENTAL-' . $rental->id . '-' . time();
+                
+                // Prepare items
+                $items = [];
+                foreach ($rental->items as $item) {
+                    $itemName = 'Item';
+                    if ($item->rentable) {
+                        $itemName = $item->rentable->nama ?? $item->rentable->judul ?? $item->rentable->name ?? 'Item';
+                    }
+                    $items[] = [
+                        'id' => $item->id,
+                        'price' => (int) $item->price,
+                        'quantity' => $item->quantity,
+                        'name' => substr($itemName, 0, 50),
+                    ];
+                }
+                
+                $params = [
+                    'transaction_details' => [
+                        'order_id' => $orderId,
+                        'gross_amount' => (int) $rental->total,
+                    ],
+                    'item_details' => $items,
+                    'customer_details' => [
+                        'first_name' => auth()->user()->name,
+                        'email' => auth()->user()->email,
+                        'phone' => auth()->user()->phone ?? '',
+                    ],
+                ];
+                
+                $snapToken = $midtrans->createSnapToken($params);
+                
+                // Update atau buat payment baru
+                if ($payment) {
+                    $payment->update([
+                        'order_id' => $orderId,
+                        'snap_token' => $snapToken,
+                    ]);
+                } else {
+                    $payment = Payment::create([
+                        'rental_id' => $rental->id,
+                        'method' => 'midtrans',
+                        'amount' => $rental->total,
+                        'order_id' => $orderId,
+                        'snap_token' => $snapToken,
+                        'transaction_status' => 'pending',
+                    ]);
+                }
+                
+                \Log::info('New snap token created for continue payment', [
+                    'rental_id' => $rental->id,
+                    'order_id' => $orderId,
+                ]);
+                
+            } catch (\Exception $e) {
+                \Log::error('Error creating new snap token for continue payment', [
+                    'rental_id' => $rental->id,
+                    'error' => $e->getMessage(),
+                ]);
+                
+                return redirect()->route('pelanggan.rentals.show', $rental)
+                    ->with('error', 'Gagal memproses pembayaran: ' . $e->getMessage());
+            }
+        }
+        
+        $snapToken = $payment->snap_token;
+        $orderId = $payment->order_id;
+        
+        return view('pelanggan.payment.midtrans', compact('rental', 'snapToken', 'orderId'));
+    }
+
+    /**
+     * Batalkan pesanan yang pending
+     */
+    public function cancel(Rental $rental)
+    {
+        Gate::authorize('access-pelanggan');
+        
+        if ($rental->user_id !== auth()->id()) {
+            abort(403);
+        }
+        
+        // Hanya bisa membatalkan jika status pending
+        if ($rental->status !== 'pending') {
+            return redirect()->route('pelanggan.rentals.show', $rental)
+                ->with('error', 'Pesanan ini tidak dapat dibatalkan.');
+        }
+        
+        // Update status rental menjadi cancelled
+        $rental->update([
+            'status' => 'cancelled',
+        ]);
+        
+        // Update semua payment yang pending menjadi cancel
+        $rental->payments()
+            ->where('transaction_status', 'pending')
+            ->update(['transaction_status' => 'cancel']);
+        
+        \Log::info('Rental cancelled by user', [
+            'rental_id' => $rental->id,
+            'user_id' => auth()->id(),
+        ]);
+        
+        return redirect()->route('pelanggan.rentals.index')
+            ->with('status', 'Pesanan berhasil dibatalkan.');
     }
 }

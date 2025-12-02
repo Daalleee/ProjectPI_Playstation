@@ -16,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'midtrans/notification',
         ]);
         
+        $middleware->web(append: [
+            \App\Http\Middleware\LocaleMiddleware::class,
+        ]);
+
         $middleware->alias([
             'ensure.profile.complete' => \App\Http\Middleware\EnsureProfileComplete::class,
         ]);

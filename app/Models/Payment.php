@@ -17,6 +17,8 @@ class Payment extends Model
         'reference',
         'paid_at',
         'order_id',
+        'snap_token',
+        'payment_instructions',
         'transaction_id',
         'transaction_status',
         'payment_type',
@@ -29,6 +31,7 @@ class Payment extends Model
     protected $casts = [
         'paid_at' => 'datetime',
         'transaction_time' => 'datetime',
+        'payment_instructions' => 'array',
     ];
 
     public function rental(): BelongsTo

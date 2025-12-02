@@ -120,15 +120,15 @@ class DatabaseSeeder extends Seeder
         // Seed Accessories - PERBAIKAN: gunakan 'nama' bukan 'name'
         $accessories = [
             ['nama' => 'DualSense Controller White', 'jenis' => 'Controller', 'stok' => 5, 'harga_per_hari' => 10000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=800&q=80'],
-            ['nama' => 'DualSense Controller Black', 'jenis' => 'Controller', 'stok' => 4, 'harga_per_hari' => 10000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=800&q=80'],
-            ['nama' => 'DualShock 4 Controller', 'jenis' => 'Controller', 'stok' => 6, 'harga_per_hari' => 8000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=800&q=80'],
-            ['nama' => 'PS5 Pulse 3D Headset', 'jenis' => 'Headset', 'stok' => 3, 'harga_per_hari' => 15000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=800&q=80'],
-            ['nama' => 'PS4 Gaming Headset', 'jenis' => 'Headset', 'stok' => 4, 'harga_per_hari' => 12000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1599481238640-4c1288750d7a?auto=format&fit=crop&w=800&q=80'],
-            ['nama' => 'DualSense Charging Station', 'jenis' => 'Charger', 'stok' => 4, 'harga_per_hari' => 8000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1622979135225-d2ba269fb1bd?auto=format&fit=crop&w=800&q=80'],
+            ['nama' => 'DualSense Controller Black', 'jenis' => 'Controller', 'stok' => 4, 'harga_per_hari' => 10000, 'kondisi' => 'baik', 'gambar' => 'https://www.retravision.com.au/img/containers/products/7/9/66a737714dcf2_28204005949470-790504f9d17db5b6901e632c4970aebb.jpg/157cda3d983a3f39baa065933972e4db/66a737714dcf2_28204005949470-790504f9d17db5b6901e632c4970aebb.jpg'],
+            ['nama' => 'DualShock 4 Controller', 'jenis' => 'Controller', 'stok' => 6, 'harga_per_hari' => 8000, 'kondisi' => 'baik', 'gambar' => 'https://media.gamestop.com/i/gamestop/10150008/Sony-DualShock-4-Wireless-Controller-Call-of-Duty?w=768&h=768&fmt=auto'],
+            ['nama' => 'PS5 Pulse 3D Headset', 'jenis' => 'Headset', 'stok' => 3, 'harga_per_hari' => 15000, 'kondisi' => 'baik', 'gambar' => 'https://m.media-amazon.com/images/I/41x305--otL.jpg'],
+            ['nama' => 'PS4 Gaming Headset', 'jenis' => 'Headset', 'stok' => 4, 'harga_per_hari' => 12000, 'kondisi' => 'baik', 'gambar' => 'https://row.hyperx.com/cdn/shop/products/hyperx_cloud_flight_ps_1_main.jpg?v=1662421092'],
+            ['nama' => 'DualSense Charging Station', 'jenis' => 'Charger', 'stok' => 4, 'harga_per_hari' => 8000, 'kondisi' => 'baik', 'gambar' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZGKqHcSt3JE6RUFoSTkkWeyrQt3sUxoKL9g&s'],
             ['nama' => 'PS VR2 Headset', 'jenis' => 'VR', 'stok' => 2, 'harga_per_hari' => 35000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1622979135225-d2ba269fb1bd?auto=format&fit=crop&w=800&q=80'],
             ['nama' => 'PS VR (Gen 1)', 'jenis' => 'VR', 'stok' => 3, 'harga_per_hari' => 25000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1622979135225-d2ba269fb1bd?auto=format&fit=crop&w=800&q=80'],
             ['nama' => 'HD Camera', 'jenis' => 'Camera', 'stok' => 2, 'harga_per_hari' => 10000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80'],
-            ['nama' => 'Media Remote', 'jenis' => 'Remote', 'stok' => 3, 'harga_per_hari' => 5000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80'],
+            ['nama' => 'Media Remote', 'jenis' => 'Remote', 'stok' => 3, 'harga_per_hari' => 5000, 'kondisi' => 'baik', 'gambar' => 'https://i.ytimg.com/vi_webp/RGjH9h1zokc/maxresdefault.webp'],
             ['nama' => 'Racing Wheel', 'jenis' => 'Wheel', 'stok' => 2, 'harga_per_hari' => 30000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'],
             ['nama' => 'Move Controllers (Pair)', 'jenis' => 'Controller', 'stok' => 3, 'harga_per_hari' => 12000, 'kondisi' => 'baik', 'gambar' => 'https://images.unsplash.com/photo-1592840496694-26d035b52b48?auto=format&fit=crop&w=800&q=80'],
         ];
@@ -253,5 +253,8 @@ class DatabaseSeeder extends Seeder
 
         // Ensure images are updated with the latest URLs
         $this->call(UpdateImagesSeeder::class);
+
+        // Populate keywords for semantic search
+        $this->call(SemanticSearchSeeder::class);
     }
 }

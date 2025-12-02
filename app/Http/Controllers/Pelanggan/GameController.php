@@ -24,9 +24,12 @@ class GameController extends Controller
             $query->where('genre', 'like', '%' . $request->genre . '%');
         }
 
-        // Search by title
+        // Search by title or keywords (Semantic Search)
         if ($request->filled('q')) {
-            $query->where('judul', 'like', '%' . $request->q . '%');
+            $query->where(function($q) use ($request) {
+                $q->where('judul', 'like', '%' . $request->q . '%')
+                  ->orWhere('keywords', 'like', '%' . $request->q . '%');
+            });
         }
 
         $games = $query->latest()->paginate(12);
