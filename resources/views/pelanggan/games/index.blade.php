@@ -7,10 +7,10 @@
             <div class="card-body">
                 <form method="GET" action="{{ route('pelanggan.games.list') }}" class="row g-3">
                     <div class="col-md-3">
-                        <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">Platform</label>
+                        <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">{{ __('catalog.platform') }}</label>
                         <select name="platform" class="form-select"
                             style="background-color: #FFFFFF; border-color: #A3A3A3; color: #222222;">
-                            <option value="">Semua Platform</option>
+                            <option value="">{{ __('catalog.all_platforms') }}</option>
                             @foreach (['PS3', 'PS4', 'PS5'] as $opt)
                                 <option value="{{ $opt }}" @selected(request('platform') === $opt)>{{ $opt }}
                                 </option>
@@ -18,24 +18,24 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">Genre</label>
+                        <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">{{ __('catalog.genre') }}</label>
                         <input type="text" name="genre" value="{{ request('genre') }}" class="form-control"
                             style="background-color: #FFFFFF; border-color: #A3A3A3; color: #222222;"
-                            placeholder="Contoh: Action, RPG">
+                            placeholder="{{ __('catalog.genre_placeholder') }}">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">Cari Game</label>
+                        <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">{{ __('catalog.search_game') }}</label>
                         <div class="input-group">
                             <span class="input-group-text"
                                 style="background-color: #FFFFFF; border-color: #A3A3A3; color: #6B7280;"><i
                                     class="bi bi-search"></i></span>
                             <input type="text" name="q" value="{{ request('q') }}" class="form-control"
                                 style="background-color: #FFFFFF; border-color: #A3A3A3; color: #222222;"
-                                placeholder="Nama game...">
+                                placeholder="{{ __('catalog.search_game_placeholder') }}">
                         </div>
                     </div>
                     <div class="col-md-2 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary w-100 fw-bold">Filter</button>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">{{ __('catalog.filter') }}</button>
                     </div>
                 </form>
             </div>
@@ -47,10 +47,18 @@
                 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
                     @forelse($games as $game)
                         <div class="col">
-                            <div class="card h-100 border-0 shadow-sm"
-                                style="background: #FFFFFF; border: 1px solid #E5E7EB;">
+                            @php
+                                $platformKey = $game->platform ?? 'PS4';
+                            @endphp
+                            <div class="card h-100 shadow-sm position-relative card-blue-left" style="border-radius: 16px;">
+                                <!-- Platform Badge -->
+                                <div class="position-absolute" style="top: 12px; left: 12px; z-index: 10;">
+                                    <span class="d-flex align-items-center justify-content-center fw-bold" style="background: #0652DD; color: #fff; width: 44px; height: 44px; border-radius: 50%; font-size: 0.7rem; box-shadow: 0 3px 10px rgba(6,82,221,0.4);">
+                                        {{ $platformKey }}
+                                    </span>
+                                </div>
                                 <div class="position-relative"
-                                    style="height: 200px; overflow: hidden; border-radius: 16px 16px 0 0;">
+                                    style="height: 200px; overflow: hidden; border-radius: 0;">
                                     @if ($game->gambar)
                                         <img src="{{ str_starts_with($game->gambar, 'http') ? $game->gambar : asset('storage/' . $game->gambar) }}"
                                             alt="{{ $game->judul }}" class="w-100 h-100 object-fit-cover"
@@ -72,16 +80,16 @@
                                         @endphp
                                         @if ($stok > 0)
                                             <div class="mb-2" style="font-size: 1rem; color: #6B7280; font-weight: 500;">
-                                                Tersedia {{ $stok }}
+                                                {{ __('catalog.available') }} {{ $stok }}
                                             </div>
                                         @else
                                             <div class="mb-2" style="font-size: 1rem; color: #6B7280; font-weight: 500;">
-                                                Habis
+                                                {{ __('catalog.out_of_stock') }}
                                             </div>
                                         @endif
                                         <div class="fw-bold" style="color: #009432;">Rp
                                             {{ number_format($game->harga_per_hari, 0, ',', '.') }}<span
-                                                class="small fw-normal" style="color: #009432;">/hari</span></div>
+                                                class="small fw-normal" style="color: #009432;">{{ __('catalog.per_day') }}</span></div>
                                     </div>
                                     <div class="mt-auto">
                                         <div class="d-flex gap-2">
@@ -100,7 +108,7 @@
                                                style="background-color: #0652DD; border-color: #0652DD;"
                                                onmouseover="this.style.backgroundColor='#032a8a'; this.style.borderColor='#032a8a';"
                                                onmouseout="this.style.backgroundColor='#0652DD'; this.style.borderColor='#0652DD';">
-                                                Sewa
+                                                {{ __('catalog.rent') }}
                                             </a>
                                         </div>
                                     </div>
@@ -111,7 +119,7 @@
                         <div class="col-12">
                             <div class="text-center py-5">
                                 <i class="bi bi-disc" style="color: #6B7280; font-size: 3rem;"></i>
-                                <p class="mt-3 mb-0" style="color: #6B7280;">Tidak ada game yang sesuai kriteria.</p>
+                                <p class="mt-3 mb-0" style="color: #6B7280;">{{ __('catalog.no_games') }}</p>
                             </div>
                         </div>
                     @endforelse

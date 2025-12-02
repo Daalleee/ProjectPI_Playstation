@@ -8,27 +8,27 @@
         <div class="card-body">
             <form method="GET" action="{{ route('pelanggan.accessories.list') }}" class="row g-3">
                 <div class="col-md-3">
-                    <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">Jenis</label>
-                    <select name="jenis" class="form-select" style="background-color: #FFFFFF; border-color: #A3A3A3; color: #222222;">
-                        <option value="">Semua Jenis</option>
+                    <label class="form-label small text-uppercase fw-bold text-muted">{{ __('catalog.type') }}</label>
+                    <select name="jenis" class="form-select">
+                        <option value="">{{ __('catalog.all_types') }}</option>
                         @foreach (['Headset','Kabel','Adapter','Charger','Tas','Lainnya'] as $opt)
                             <option value="{{ $opt }}" @selected(request('jenis')===$opt)>{{ $opt }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">Merek</label>
-                    <input type="text" name="brand" value="{{ request('brand') }}" class="form-control" style="background-color: #FFFFFF; border-color: #A3A3A3; color: #222222;" placeholder="Contoh: Sony, Razer">
+                    <label class="form-label small text-uppercase fw-bold text-muted">{{ __('catalog.brand') }}</label>
+                    <input type="text" name="brand" value="{{ request('brand') }}" class="form-control" placeholder="{{ __('catalog.brand_placeholder') }}">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label small text-uppercase fw-bold" style="color: #6B7280;">Cari Aksesoris</label>
+                    <label class="form-label small text-uppercase fw-bold text-muted">{{ __('catalog.search_accessory') }}</label>
                     <div class="input-group">
-                        <span class="input-group-text" style="background-color: #FFFFFF; border-color: #A3A3A3; color: #6B7280;"><i class="bi bi-search"></i></span>
-                        <input type="text" name="q" value="{{ request('q') }}" class="form-control" style="background-color: #FFFFFF; border-color: #A3A3A3; color: #222222;" placeholder="Nama aksesoris...">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" name="q" value="{{ request('q') }}" class="form-control" placeholder="{{ __('catalog.search_placeholder_accessory') }}">
                     </div>
                 </div>
                 <div class="col-md-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100 fw-bold">Filter</button>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">{{ __('catalog.filter') }}</button>
                 </div>
             </form>
         </div>
@@ -40,7 +40,7 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-4">
                 @forelse($accessories as $acc)
                     <div class="col">
-                        <div class="card h-100 border-0 shadow-sm" style="background: #FFFFFF; border: 1px solid #E5E7EB;">
+                        <div class="card h-100 shadow-sm">
                             <div class="position-relative" style="height: 200px; overflow: hidden; border-radius: 16px 16px 0 0;">
                                 @if($acc->gambar)
                                     <img src="{{ str_starts_with($acc->gambar, 'http') ? $acc->gambar : asset('storage/' . $acc->gambar) }}"
@@ -56,21 +56,21 @@
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <div class="text-center mb-3">
-                                    <h5 class="card-title fw-bold mb-1" style="color: #000000;">{{ $acc->nama }}</h5>
-                                    <p class="mb-1" style="font-size: 1rem; color: #6B7280; font-weight: 500;">{{ $acc->jenis }}</p>
+                                    <h5 class="card-title fw-bold mb-1">{{ $acc->nama }}</h5>
+                                    <p class="mb-1 text-muted" style="font-size: 1rem; font-weight: 500;">{{ $acc->jenis }}</p>
                                     @php
                                         $stok = $acc->stok ?? 0;
                                     @endphp
                                     @if($stok > 0)
-                                        <div class="mb-2" style="font-size: 1rem; color: #6B7280; font-weight: 500;">
-                                            Tersedia {{ $stok }}
+                                        <div class="mb-2 text-muted" style="font-size: 1rem; font-weight: 500;">
+                                            {{ __('catalog.available', ['count' => $stok]) }}
                                         </div>
                                     @else
-                                        <div class="mb-2" style="font-size: 1rem; color: #6B7280; font-weight: 500;">
-                                            Habis
+                                        <div class="mb-2 text-muted" style="font-size: 1rem; font-weight: 500;">
+                                            {{ __('catalog.out_of_stock') }}
                                         </div>
                                     @endif
-                                    <div class="fw-bold" style="color: #009432;">Rp {{ number_format($acc->harga_per_hari, 0, ',', '.') }}<span class="small fw-normal" style="color: #009432;">/hari</span></div>
+                                    <div class="fw-bold" style="color: #009432;">Rp {{ number_format($acc->harga_per_hari, 0, ',', '.') }}<span class="small fw-normal" style="color: #009432;">{{ __('catalog.per_day') }}</span></div>
                                 </div>
                                 <div class="mt-auto">
                                     <div class="d-flex gap-2">
@@ -89,7 +89,7 @@
                                            style="background-color: #0652DD; border-color: #0652DD;"
                                            onmouseover="this.style.backgroundColor='#032a8a'; this.style.borderColor='#032a8a';"
                                            onmouseout="this.style.backgroundColor='#0652DD'; this.style.borderColor='#0652DD';">
-                                            Sewa
+                                            {{ __('catalog.rent') }}
                                         </a>
                                     </div>
                                 </div>
@@ -100,13 +100,13 @@
                     <div class="col-12">
                         <div class="text-center py-5">
                             <i class="bi bi-headset" style="color: #6B7280; font-size: 3rem;"></i>
-                            <p class="mt-3 mb-0" style="color: #6B7280;">Tidak ada aksesoris yang sesuai kriteria.</p>
+                            <p class="mt-3 mb-0" style="color: #6B7280;">{{ __('catalog.no_accessories_found') }}</p>
                         </div>
                     </div>
                 @endforelse
             </div>
         </div>
-        <div class="card-footer border-0 bg-transparent py-3" style="border-top: 1px solid #E5E7EB; color: #222222;">
+        <div class="card-footer border-0 bg-transparent py-3" style="border-top: 1px solid var(--card-border);">
             {{ $accessories->withQueryString()->links() }}
         </div>
     </div>
@@ -124,7 +124,7 @@
 
             // Validate data
             if(!type || !id || !name || isNaN(price)) {
-                alert('Data item tidak lengkap');
+                alert('{{ __('dashboard.js_incomplete_data') }}');
                 return;
             }
 
@@ -159,9 +159,9 @@
                 } else {
                     // Show error message
                     if(window.showFlashMessage) {
-                        window.showFlashMessage(data.message || 'Gagal menambahkan ke keranjang', 'error');
+                        window.showFlashMessage(data.message || '{{ __('dashboard.js_add_failed') }}', 'error');
                     } else {
-                        alert(data.message || 'Gagal menambahkan ke keranjang');
+                        alert(data.message || '{{ __('dashboard.js_add_failed') }}');
                     }
                 }
 
@@ -171,7 +171,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Terjadi kesalahan saat menambahkan ke keranjang');
+                alert('{{ __('dashboard.js_error') }}');
                 // Restore button
                 this.disabled = false;
                 this.innerHTML = originalHTML;

@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -33,6 +34,18 @@
             --sidebar-width: 230px; /* Kurangi lebar sidebar */
             --sidebar-collapsed-width: 70px;
             --header-height: 70px;
+        }
+
+        [data-theme="dark"] {
+            --bg-light: #0f172a;
+            --sidebar-bg: #1e293b;
+            --sidebar-hover-bg: #334155;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
         }
 
         body {
@@ -76,12 +89,14 @@
         }
 
         .sidebar-header {
-            height: calc(var(--header-height) - 8px); /* Kurangi sedikit tinggi header */
+            height: 56px;
             display: flex;
             align-items: center;
-            padding: 0 0.8rem; /* Kurangi padding */
+            padding: 0 1rem;
             white-space: nowrap;
-            background: inherit; /* Uses the same background as sidebar */
+            background: inherit;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 0.5rem;
         }
 
         .logo-icon {
@@ -115,50 +130,49 @@
 
         .sidebar-menu {
             flex: 1;
-            padding: 0.8rem 1rem; /* Kurangi padding lebih jauh */
+            padding: 0 0.75rem;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 0.2rem; /* Kurangi jarak antar menu lebih jauh */
+            gap: 2px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            padding: 0.4rem 1rem; /* Kurangi padding vertikal lebih jauh */
+            padding: 0.6rem 0.85rem;
             color: white;
             text-decoration: none;
-            border-radius: 10px; /* Kurangi border radius */
+            border-radius: 8px;
             transition: all 0.2s ease;
             white-space: nowrap;
             font-weight: 500;
-            font-size: 0.9rem; /* Sedikit kecilkan ukuran font */
-            margin: 0; /* Pastikan tidak ada margin tambahan */
+            font-size: 0.875rem;
+            margin: 0;
         }
 
-        /* Tambahkan override lebih kuat untuk semua menu item */
         .sidebar-menu .nav-link {
             margin-bottom: 0 !important;
         }
 
         .nav-link:hover {
             color: white;
-            background: #0652DD; /* Same blue color as base */
-            transform: translateX(4px);
+            background: #0652DD;
+            transform: translateX(3px);
         }
 
         .nav-link.active {
             color: white;
-            background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #0652DD; /* More darkening overlay without changing base color */
+            background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #0652DD;
             font-weight: 600;
         }
 
         .nav-link i {
-            font-size: 1.25rem;
-            min-width: 24px;
+            font-size: 1.15rem;
+            min-width: 22px;
             display: flex;
             justify-content: center;
-            margin-right: 12px;
+            margin-right: 10px;
         }
 
         .sidebar.collapsed .nav-link span {
@@ -167,7 +181,7 @@
 
         .sidebar.collapsed .nav-link {
             justify-content: center;
-            padding: 0.9rem 0;
+            padding: 0.75rem 0;
         }
 
         .sidebar.collapsed .nav-link:hover {
@@ -178,24 +192,39 @@
             margin-right: 0;
         }
 
+        /* Center logo when sidebar is collapsed */
+        .sidebar.collapsed .sidebar-header {
+            justify-content: center;
+            padding: 0;
+            border-bottom: none;
+        }
+
+        .sidebar.collapsed .logo-icon {
+            margin-right: 0;
+        }
+
         /* Sidebar Heading */
         .sidebar-heading {
             color: #E5E7EB;
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.6rem; /* Kecilkan font lebih jauh */
-            letter-spacing: 0.4px; /* Kurangi letter spacing lebih jauh */
-            padding: 0 1rem;
-            margin-top: 0.6rem; /* Kurangi margin atas lebih jauh */
-            margin-bottom: 0.2rem; /* Kurangi margin bawah lebih jauh */
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            padding: 0.75rem 0.85rem 0.4rem;
+            margin: 0;
             white-space: nowrap;
-            opacity: 1;
-            transition: opacity 0.2s;
         }
 
         .sidebar.collapsed .sidebar-heading {
             opacity: 0;
             display: none;
+        }
+        
+        /* Logout section */
+        .sidebar-menu .mt-auto {
+            margin-top: auto !important;
+            padding-top: 0.75rem !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
 
         /* Utility Overrides for Dark Theme */
@@ -231,7 +260,7 @@
             right: 0;
             left: var(--sidebar-width);
             height: var(--header-height);
-            background: white; /* White background to maintain light theme */
+            background: var(--card-bg); /* Use variable for background */
             z-index: 1030;
             display: flex;
             align-items: center;
@@ -506,6 +535,119 @@
             background-color: var(--secondary) !important;
             color: #ffffff !important;
         }
+
+        /* ===== Stylish SweetAlert2 Custom Styles ===== */
+        .swal-logout-popup {
+            border-radius: 20px !important;
+            padding: 2rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+            border: none !important;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%) !important;
+        }
+
+        .swal-logout-popup .swal2-title {
+            color: #1e293b !important;
+            font-family: 'Outfit', sans-serif !important;
+            padding: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .swal-logout-popup .swal2-html-container {
+            color: #64748b !important;
+            font-family: 'Outfit', sans-serif !important;
+            margin: 1rem 0 !important;
+        }
+
+        .swal-actions {
+            gap: 12px !important;
+            margin-top: 1.5rem !important;
+        }
+
+        .swal-confirm-btn {
+            background: linear-gradient(135deg, #0652DD 0%, #0043b8 100%) !important;
+            color: white !important;
+            border: none !important;
+            padding: 12px 28px !important;
+            border-radius: 12px !important;
+            font-weight: 600 !important;
+            font-size: 0.95rem !important;
+            font-family: 'Outfit', sans-serif !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(6, 82, 221, 0.35) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .swal-confirm-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 20px rgba(6, 82, 221, 0.45) !important;
+        }
+
+        .swal-confirm-btn:active {
+            transform: translateY(0) !important;
+        }
+
+        .swal-cancel-btn {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+            color: #475569 !important;
+            border: 1px solid #cbd5e1 !important;
+            padding: 12px 28px !important;
+            border-radius: 12px !important;
+            font-weight: 600 !important;
+            font-size: 0.95rem !important;
+            font-family: 'Outfit', sans-serif !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .swal-cancel-btn:hover {
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .swal-cancel-btn:active {
+            transform: translateY(0) !important;
+        }
+
+        /* Success/Error/Warning popup styles */
+        .swal-success-popup {
+            border-radius: 20px !important;
+            padding: 2rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+            background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%) !important;
+        }
+
+        .swal-error-popup {
+            border-radius: 20px !important;
+            padding: 2rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+            background: linear-gradient(145deg, #ffffff 0%, #fef2f2 100%) !important;
+        }
+
+        .swal-warning-popup {
+            border-radius: 20px !important;
+            padding: 2rem !important;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+            background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%) !important;
+        }
+
+        /* Toast notification styles */
+        .swal2-popup.swal2-toast {
+            border-radius: 12px !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+            padding: 12px 20px !important;
+        }
+
+        .swal2-popup.swal2-toast .swal2-title {
+            font-family: 'Outfit', sans-serif !important;
+            font-weight: 500 !important;
+        }
     </style>
     @yield('styles')
 </head>
@@ -527,12 +669,12 @@
         <nav class="sidebar-menu">
             @yield('sidebar_menu')
             
-            <div class="mt-auto pt-4 border-top border-white border-opacity-10">
+            <div class="mt-auto">
                 <form method="POST" action="{{ route('logout') }}" onsubmit="confirmLogout(event)">
                     @csrf
                     <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent text-danger">
                         <i class="bi bi-box-arrow-right"></i>
-                        <span>Logout</span>
+                        <span>{{ __('dashboard.logout') }}</span>
                     </button>
                 </form>
             </div>
@@ -549,8 +691,24 @@
         </div>
         
         <div class="d-flex align-items-center gap-3">
+            <!-- Language Switcher -->
             <div class="dropdown">
-                <button class="btn btn-link text-white text-decoration-none dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                <button class="btn btn-link text-decoration-none dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-translate fs-5" style="color: var(--text-main);"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg" style="background-color: var(--card-bg); border-color: var(--card-border);">
+                    <li><a class="dropdown-item" href="{{ route('lang.switch', 'id') }}" style="color: var(--text-main);">🇮🇩 Indonesia</a></li>
+                    <li><a class="dropdown-item" href="{{ route('lang.switch', 'en') }}" style="color: var(--text-main);">🇬🇧 English</a></li>
+                </ul>
+            </div>
+
+            <!-- Dark Mode Toggle -->
+            <button class="btn btn-link text-decoration-none" id="darkModeToggle">
+                <i class="bi bi-moon-stars fs-5" style="color: var(--text-main);"></i>
+            </button>
+
+            <div class="dropdown">
+                <button class="btn btn-link text-decoration-none dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
                     <div id="navbarAvatar" class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold overflow-hidden" style="width: 32px; height: 32px;">
                         @if(Auth::user()->avatar)
                             <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar" class="w-100 h-100 object-fit-cover">
@@ -558,16 +716,16 @@
                             {{ substr(Auth::user()->name ?? 'U', 0, 1) }}
                         @endif
                     </div>
-                    <span class="d-none d-sm-block">{{ Auth::user()->name ?? 'User' }}</span>
+                    <span class="d-none d-sm-block" style="color: var(--text-main);">{{ Auth::user()->name ?? 'User' }}</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark border border-white border-opacity-10 shadow-lg">
-                    <li><h6 class="dropdown-header">Signed in as {{ Auth::user()->role ?? 'User' }}</h6></li>
+                    <li><h6 class="dropdown-header">{{ __('dashboard.signed_in_as') }} {{ Auth::user()->role ?? 'User' }}</h6></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i> Profile</a></li>
+                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i> {{ __('dashboard.profile') }}</a></li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}" onsubmit="confirmLogout(event)">
                             @csrf
-                            <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i> Logout</button>
+                            <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i> {{ __('dashboard.logout') }}</button>
                         </form>
                     </li>
                 </ul>
@@ -590,6 +748,30 @@
             const toggleBtn = document.getElementById('sidebarToggle');
             const overlay = document.getElementById('sidebarOverlay');
             const body = document.body;
+            
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const icon = darkModeToggle.querySelector('i');
+
+            // Dark Mode Logic
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                if (currentTheme === 'dark') {
+                    icon.classList.replace('bi-moon-stars', 'bi-sun');
+                }
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                let theme = 'light';
+                if (document.documentElement.getAttribute('data-theme') !== 'dark') {
+                    theme = 'dark';
+                    icon.classList.replace('bi-moon-stars', 'bi-sun');
+                } else {
+                    icon.classList.replace('bi-sun', 'bi-moon-stars');
+                }
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
 
             // Check local storage for preference
             const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
@@ -646,16 +828,33 @@
             });
         });
 
-        // Global Flash Message Function using SweetAlert2
+        // Global Flash Message Function using SweetAlert2 - Stylish Version
         function showFlashMessage(message, type = 'success') {
+            const iconColors = {
+                success: '#10b981',
+                error: '#ef4444',
+                warning: '#f59e0b',
+                info: '#0652DD'
+            };
+            
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 4000,
                 timerProgressBar: true,
-                background: '#FFFFFF',
-                color: '#222222',
+                background: '#ffffff',
+                color: '#1e293b',
+                iconColor: iconColors[type] || iconColors.info,
+                customClass: {
+                    popup: 'swal2-toast-custom'
+                },
+                showClass: {
+                    popup: 'animate__animated animate__slideInRight animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__slideOutRight animate__faster'
+                },
                 didOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer)
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -664,23 +863,38 @@
 
             Toast.fire({
                 icon: type,
-                title: message
+                title: `<span style="font-weight: 500; font-size: 0.95rem;">${message}</span>`
             });
         }
 
-        // Global Confirm Action Helper
+        // Global Confirm Action Helper - Stylish Version
         function confirmAction(message, formId) {
             Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: message,
-                icon: 'warning',
+                title: '<span style="font-weight: 700; font-size: 1.5rem;">Konfirmasi Aksi</span>',
+                html: `
+                    <div style="margin-top: 10px;">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-exclamation-triangle" style="font-size: 2.5rem; color: #d97706;"></i>
+                        </div>
+                        <p style="color: #64748b; font-size: 1rem; margin: 0;">${message}</p>
+                    </div>
+                `,
                 showCancelButton: true,
-                confirmButtonColor: '#0652DD', // Primary color (blue)
-                cancelButtonColor: '#ef4444', // Danger color
-                confirmButtonText: 'Ya, Lanjutkan!',
-                cancelButtonText: 'Batal',
-                background: '#FFFFFF',
-                color: '#222222'
+                confirmButtonText: '<i class="bi bi-check-lg me-2"></i>Ya, Lanjutkan',
+                cancelButtonText: '<i class="bi bi-x-lg me-2"></i>Batal',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'swal-logout-popup',
+                    confirmButton: 'swal-confirm-btn',
+                    cancelButton: 'swal-cancel-btn',
+                    actions: 'swal-actions'
+                },
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp animate__faster'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById(formId).submit();
@@ -689,23 +903,49 @@
             return false;
         }
 
-        // Global Logout Confirmation Helper
+        // Global Logout Confirmation Helper - Stylish Version
         function confirmLogout(event) {
             event.preventDefault();
             Swal.fire({
-                title: 'Yakin ingin keluar?',
-                text: 'Anda akan keluar dari sesi ini.',
-                icon: 'warning',
+                title: '<span style="font-weight: 700; font-size: 1.5rem;">Keluar dari Akun?</span>',
+                html: `
+                    <div style="margin-top: 10px;">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-box-arrow-right" style="font-size: 2.5rem; color: #dc2626;"></i>
+                        </div>
+                        <p style="color: #64748b; font-size: 1rem; margin: 0;">Anda akan keluar dari sesi ini.<br>Yakin ingin melanjutkan?</p>
+                    </div>
+                `,
                 showCancelButton: true,
-                confirmButtonColor: '#0652DD', // Primary color (blue)
-                cancelButtonColor: '#ef4444', // Danger color
-                confirmButtonText: 'Ya, Keluar',
-                cancelButtonText: 'Batal',
-                background: '#FFFFFF',
-                color: '#222222'
+                confirmButtonText: '<i class="bi bi-check-lg me-2"></i>Ya, Keluar',
+                cancelButtonText: '<i class="bi bi-x-lg me-2"></i>Batal',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'swal-logout-popup',
+                    confirmButton: 'swal-confirm-btn',
+                    cancelButton: 'swal-cancel-btn',
+                    actions: 'swal-actions'
+                },
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp animate__faster'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Find the form associated with this logout action and submit it
+                    // Show loading state
+                    Swal.fire({
+                        title: 'Logging out...',
+                        html: '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        background: '#ffffff',
+                        customClass: {
+                            popup: 'swal-logout-popup'
+                        }
+                    });
+                    
                     const form = event.target.closest('form');
                     if (form) {
                         form.submit();
@@ -718,16 +958,31 @@
         function confirmLogoutPartial(event) {
             event.preventDefault();
             Swal.fire({
-                title: 'Yakin ingin keluar?',
-                text: 'Anda akan keluar dari sesi ini.',
-                icon: 'warning',
+                title: '<span style="font-weight: 700; font-size: 1.5rem;">Keluar dari Akun?</span>',
+                html: `
+                    <div style="margin-top: 10px;">
+                        <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-box-arrow-right" style="font-size: 2.5rem; color: #dc2626;"></i>
+                        </div>
+                        <p style="color: #64748b; font-size: 1rem; margin: 0;">Anda akan keluar dari sesi ini.<br>Yakin ingin melanjutkan?</p>
+                    </div>
+                `,
                 showCancelButton: true,
-                confirmButtonColor: '#0652DD', // Primary color (blue)
-                cancelButtonColor: '#ef4444', // Danger color
-                confirmButtonText: 'Ya, Keluar',
-                cancelButtonText: 'Batal',
-                background: '#FFFFFF',
-                color: '#222222'
+                confirmButtonText: '<i class="bi bi-check-lg me-2"></i>Ya, Keluar',
+                cancelButtonText: '<i class="bi bi-x-lg me-2"></i>Batal',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'swal-logout-popup',
+                    confirmButton: 'swal-confirm-btn',
+                    cancelButton: 'swal-cancel-btn',
+                    actions: 'swal-actions'
+                },
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp animate__faster'
+                }
             }).then((result) => {
                 if (result.isConfirmed) {
                     const form = event.target;

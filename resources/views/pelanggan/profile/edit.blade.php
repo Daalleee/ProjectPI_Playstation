@@ -72,35 +72,35 @@
             </div>
 
             @if(session('status'))
-                <div class="alert alert-success border-0" style="background-color: rgba(34, 197, 94, 0.25); color: #6ee7b7; border: 1px solid rgba(34, 197, 94, 0.4);" class="mb-4 d-flex align-items-center">
+                <div class="alert mb-4 d-flex align-items-center rounded-3" style="background-color: #d1fae5; color: #065f46; border: 1px solid #10b981;">
                     <i class="bi bi-check-circle-fill me-2 fs-5"></i>
                     <div>{{ session('status') }}</div>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger border-0" style="background-color: rgba(239, 68, 68, 0.25); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4);" class="mb-4 d-flex align-items-center">
+                <div class="alert mb-4 d-flex align-items-center rounded-3" style="background-color: #fee2e2; color: #991b1b; border: 1px solid #ef4444;">
                     <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
                     <div>{{ session('error') }}</div>
                 </div>
             @endif
 
             @if(session('warning'))
-                <div class="alert alert-warning border-0" style="background-color: rgba(234, 179, 8, 0.25); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.4);" class="mb-4 d-flex align-items-start">
+                <div class="alert mb-4 d-flex align-items-start rounded-3" style="background-color: #fef3c7; color: #92400e; border: 1px solid #f59e0b;">
                     <i class="bi bi-exclamation-triangle-fill me-3 fs-4 mt-1"></i>
                     <div>
-                        <h6 class="fw-bold mb-1" style="color: #222222;">Profil Belum Lengkap!</h6>
-                        <p class="mb-0 small" style="color: #6B7280;">{{ session('warning') }}</p>
+                        <h6 class="fw-bold mb-1" style="color: #92400e;">Profil Belum Lengkap!</h6>
+                        <p class="mb-0 small" style="color: #78350f;">{{ session('warning') }}</p>
                     </div>
                 </div>
             @endif
 
             @if(empty($user->phone) || empty($user->address))
-                <div class="alert alert-info border-0" style="background-color: rgba(6, 182, 212, 0.25); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4);" class="mb-4 d-flex align-items-start">
+                <div class="alert mb-4 d-flex align-items-start rounded-3" style="background-color: #cffafe; color: #0e7490; border: 1px solid #06b6d4;">
                     <i class="bi bi-info-circle-fill me-3 fs-4 mt-1"></i>
                     <div>
-                        <h6 class="fw-bold mb-1" style="color: #222222;">Informasi Penting</h6>
-                        <p class="mb-0 small" style="color: #6B7280;">Nomor HP dan Alamat <strong>WAJIB</strong> diisi untuk melakukan pemesanan rental. Lengkapi data Anda sekarang!</p>
+                        <h6 class="fw-bold mb-1" style="color: #0e7490;">Informasi Penting</h6>
+                        <p class="mb-0 small" style="color: #155e75;">Nomor HP dan Alamat <strong>WAJIB</strong> diisi untuk melakukan pemesanan rental. Lengkapi data Anda sekarang!</p>
                     </div>
                 </div>
             @endif
@@ -150,7 +150,7 @@
                                     <i class="bi bi-telephone ms-3" style="color: #6B7280;"></i>
                                     <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" required
                                            class="form-control border-0 flex-grow-1" style="background-color: transparent; color: #222222; outline: none; box-shadow: none;" @error('phone') style="border-color: #ef4444;" @enderror
-                                           placeholder="Contoh: 081234567890">
+                                           placeholder="Contoh: +6281234567890">
                                 </div>
                                 @error('phone')
                                     <small class="text-danger mt-1 d-block text-center">{{ $message }}</small>

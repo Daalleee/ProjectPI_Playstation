@@ -5,14 +5,14 @@
     <header class="hero">
         <div class="hero-content">
             <i class="fa-brands fa-playstation hero-logo"></i>
-            <h1>Nikmati Pengalaman Baru!</h1>
-            <p>Sewa konsol PlayStation terbaru dengan harga terjangkau. Nikmati pengalaman gaming terbaik tanpa batas.</p>
+            <h1>{{ __('landing.hero_title') }}</h1>
+            <p>{{ __('landing.hero_subtitle') }}</p>
             <div class="hero-buttons">
                 <a href="{{ route('register.show') }}" class="btn-hero btn-primary">
-                    Mulai Sewa <i class="fas fa-arrow-right"></i>
+                    {{ __('landing.start_renting') }} <i class="fas fa-arrow-right"></i>
                 </a>
                 <a href="#features" class="btn-hero btn-secondary">
-                    Pelajari Lebih Lanjut
+                    {{ __('landing.learn_more') }}
                 </a>
             </div>
         </div>
@@ -23,18 +23,18 @@
         <div class="features-grid">
             <div class="feature-card">
                 <i class="fas fa-gamepad feature-icon"></i>
-                <h3>Konsol Terbaru</h3>
-                <p>Tersedia PS4 dan PS5 dengan kondisi prima dan controller original untuk pengalaman terbaik.</p>
+                <h3>{{ __('landing.features_title_1') }}</h3>
+                <p>{{ __('landing.features_desc_1') }}</p>
             </div>
             <div class="feature-card">
                 <i class="fas fa-clock feature-icon"></i>
-                <h3>Sewa Fleksibel</h3>
-                <p>Pilih durasi sewa sesuai kebutuhan Anda, mulai dari harian hingga mingguan dengan harga kompetitif.</p>
+                <h3>{{ __('landing.features_title_2') }}</h3>
+                <p>{{ __('landing.features_desc_2') }}</p>
             </div>
             <div class="feature-card">
                 <i class="fas fa-headset feature-icon"></i>
-                <h3>Support 24/7</h3>
-                <p>Tim kami siap membantu Anda kapan saja jika mengalami kendala teknis selama masa sewa.</p>
+                <h3>{{ __('landing.features_title_3') }}</h3>
+                <p>{{ __('landing.features_desc_3') }}</p>
             </div>
         </div>
     </section>
