@@ -15,11 +15,11 @@
     </div>
 
     @if($errors->any())
-        <div class="alert alert-danger border-0" style="background-color: rgba(239, 68, 68, 0.25); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); display: flex; align-items: flex-start; margin-bottom: 1rem;">
+        <div class="alert rounded-3" style="background-color: #fee2e2; color: #991b1b; border: 1px solid #ef4444; display: flex; align-items: flex-start; margin-bottom: 1rem;">
             <i class="bi bi-exclamation-triangle-fill me-3 fs-4 mt-1"></i>
             <div>
-                <h6 class="fw-bold mb-1" style="color: #222222;">Terjadi Kesalahan!</h6>
-                <ul class="mb-0 ps-3 small" style="color: #6B7280;">
+                <h6 class="fw-bold mb-1" style="color: #991b1b;">Terjadi Kesalahan!</h6>
+                <ul class="mb-0 ps-3 small" style="color: #7f1d1d;">
                     @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
@@ -118,9 +118,9 @@
                                 @endif
 
                                 <div class="mt-2">
-                                    <span class="badge" style="background-color: rgba(99, 102, 241, 0.25); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4);">Rp {{ number_format($itemPrice, 0, ',', '.') }} {{ $itemPriceType == 'per_jam' ? 'per jam' : 'per hari' }}</span>
+                                    <span class="badge" style="background-color: #e0e7ff; color: #3730a3; border: 1px solid #6366f1; font-weight: 600;">Rp {{ number_format($itemPrice, 0, ',', '.') }} {{ $itemPriceType == 'per_jam' ? 'per jam' : 'per hari' }}</span>
                                     @if($itemType == 'game' || $itemType == 'accessory')
-                                        <span class="badge ms-1" style="background-color: rgba(6, 182, 212, 0.25); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4);">Qty: {{ $itemQuantity }}</span>
+                                        <span class="badge ms-1" style="background-color: #cffafe; color: #0e7490; border: 1px solid #06b6d4; font-weight: 600;">Qty: {{ $itemQuantity }}</span>
                                     @endif
                                 </div>
                             </div>

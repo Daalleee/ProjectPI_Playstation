@@ -9,42 +9,42 @@
 @endpush
 
 @section('sidebar_menu')
-    <a href="{{ route('dashboard.pelanggan') }}" class="nav-link {{ request()->routeIs('dashboard.pelanggan') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Beranda">
+    <a href="{{ route('dashboard.pelanggan') }}" class="nav-link {{ request()->routeIs('dashboard.pelanggan') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('dashboard.home') }}">
         <i class="bi bi-grid"></i>
-        <span>Beranda</span>
+        <span>{{ __('dashboard.home') }}</span>
     </a>
     
-    <div class="sidebar-heading">Belanja</div>
+    <div class="sidebar-heading">{{ __('dashboard.shop') }}</div>
     
-    <a href="{{ route('pelanggan.unitps.index') }}" class="nav-link {{ request()->routeIs('pelanggan.unitps.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Sewa PS">
+    <a href="{{ route('pelanggan.unitps.index') }}" class="nav-link {{ request()->routeIs('pelanggan.unitps.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('dashboard.rent_ps') }}">
         <i class="bi bi-controller"></i>
-        <span>Sewa PS</span>
+        <span>{{ __('dashboard.rent_ps') }}</span>
     </a>
-    <a href="{{ route('pelanggan.games.index') }}" class="nav-link {{ request()->routeIs('pelanggan.games.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Sewa Game">
+    <a href="{{ route('pelanggan.games.index') }}" class="nav-link {{ request()->routeIs('pelanggan.games.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('dashboard.rent_game') }}">
         <i class="bi bi-disc"></i>
-        <span>Sewa Game</span>
+        <span>{{ __('dashboard.rent_game') }}</span>
     </a>
-    <a href="{{ route('pelanggan.accessories.index') }}" class="nav-link {{ request()->routeIs('pelanggan.accessories.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Sewa Aksesoris">
+    <a href="{{ route('pelanggan.accessories.index') }}" class="nav-link {{ request()->routeIs('pelanggan.accessories.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('dashboard.rent_accessory') }}">
         <i class="bi bi-headset"></i>
-        <span>Sewa Aksesoris</span>
+        <span>{{ __('dashboard.rent_accessory') }}</span>
     </a>
     
-    <div class="sidebar-heading">Transaksi</div>
+    <div class="sidebar-heading">{{ __('dashboard.transactions') }}</div>
 
-    <a href="{{ route('pelanggan.cart.index') }}" class="nav-link {{ request()->routeIs('pelanggan.cart.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Keranjang">
+    <a href="{{ route('pelanggan.cart.index') }}" class="nav-link {{ request()->routeIs('pelanggan.cart.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('dashboard.cart') }}">
         <i class="bi bi-cart"></i>
-        <span>Keranjang</span>
+        <span>{{ __('dashboard.cart') }}</span>
     </a>
-    <a href="{{ route('pelanggan.rentals.index') }}" class="nav-link {{ request()->routeIs('pelanggan.rentals.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Riwayat Sewa">
+    <a href="{{ route('pelanggan.rentals.index') }}" class="nav-link {{ request()->routeIs('pelanggan.rentals.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('dashboard.rental_history') }}">
         <i class="bi bi-clock-history"></i>
-        <span>Riwayat Sewa</span>
+        <span>{{ __('dashboard.rental_history') }}</span>
     </a>
     
-    <div class="sidebar-heading">Akun</div>
+    <div class="sidebar-heading">{{ __('dashboard.account') }}</div>
 
-    <a href="{{ route('profile.edit') }}" class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Profil Saya">
+    <a href="{{ route('profile.edit') }}" class="nav-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="{{ __('dashboard.my_profile') }}">
         <i class="bi bi-person-circle"></i>
-        <span>Profil Saya</span>
+        <span>{{ __('dashboard.my_profile') }}</span>
     </a>
 @endsection
 
@@ -53,11 +53,17 @@
     /* Premium Card Enhancements */
     .card {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background-color: #FFFFFF; /* Putih Utama */
-        border: 1px solid #E5E7EB; /* Abu Border Tipis */
+        background-color: var(--card-bg);
+        border: 1px solid var(--card-border);
+        color: var(--text-main);
         position: relative;
         overflow: hidden;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Ringan/halus */
+    }
+
+    /* Card dengan garis biru kiri */
+    .card.card-blue-left {
+        border-left: 4px solid #0652DD !important;
     }
 
     .card::before {
@@ -97,11 +103,46 @@
 
     /* Table text color */
     .table th {
-        color: #000000; /* HITAM MURNI */
+        color: var(--text-main);
     }
 
     .table td {
-        color: #000000; /* HITAM MURNI */
+        color: var(--text-main);
+    }
+
+    [data-theme="dark"] .table {
+        color: var(--text-main);
+        --bs-table-color: var(--text-main);
+        --bs-table-hover-color: var(--text-main);
+    }
+
+    [data-theme="dark"] .table th,
+    [data-theme="dark"] .table td,
+    [data-theme="dark"] .table span,
+    [data-theme="dark"] .table th,
+    [data-theme="dark"] .table td,
+    [data-theme="dark"] .table span,
+    [data-theme="dark"] .table div,
+    [data-theme="dark"] .table strong,
+    [data-theme="dark"] .table b,
+    [data-theme="dark"] .table .fw-bold,
+    [data-theme="dark"] .table * {
+        color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .table tbody tr {
+        background-color: transparent;
+        color: #ffffff !important;
+    }
+
+    [data-theme="dark"] .table thead th {
+        background-color: var(--card-bg);
+        color: #ffffff !important;
+        border-bottom-color: var(--card-border);
+    }
+
+    [data-theme="dark"] .text-muted {
+        color: #94a3b8 !important;
     }
 
     /* Premium Button Effects */
@@ -146,14 +187,20 @@
 
     /* Form Input Enhancements */
     .form-control, .form-select {
-        background-color: #FFFFFF; /* Putih Murni */
-        border-color: #A3A3A3; /* Abu Border Input */
+        background-color: var(--card-bg);
+        border-color: var(--card-border);
         border-width: 2px;
-        color: #000000; /* HITAM MURNI */
+        color: var(--text-main);
+    }
+
+    [data-theme="dark"] .form-control,
+    [data-theme="dark"] .form-select {
+        color: var(--text-main) !important;
+        background-color: var(--card-bg);
     }
 
     .form-control::placeholder {
-        color: #000000; /* HITAM MURNI */
+        color: var(--text-muted);
     }
 
     .form-control:focus, .form-select:focus {
@@ -197,6 +244,9 @@
         /* Sidebar Open: 3 Columns (Wider Cards) */
         body:not(.sidebar-collapsed) .main-content .row-cols-lg-4 > *,
         body:not(.sidebar-collapsed) .main-content .row-cols-xl-4 > * {
+            --card-bg: #1e293b;
+            --card-bg: #1e293b;
+            --card-border: rgba(255, 255, 255, 0.2); /* Lebih terang/jelas untuk dark mode */
             flex: 0 0 auto;
             width: 33.3333%;
         }
@@ -214,11 +264,25 @@
         transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s ease;
     }
 
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--card-border);
+        color: var(--text-main);
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .card {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.25); /* Paksa border lebih terang */
+    }
+
     /* Custom Tooltip Styling */
     .tooltip-inner {
-        background-color: #FFFFFF; /* Putih Utama untuk tema terang */
-        color: #222222; /* Abu Gelap */
-        border: 1px solid #E5E7EB; /* Abu Border Tipis */
+        background-color: var(--card-bg);
+        color: var(--text-main);
+        border: 1px solid var(--card-border);
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         padding: 8px 12px;
         font-family: 'Outfit', sans-serif;
@@ -227,7 +291,7 @@
     }
 
     .tooltip.bs-tooltip-end .tooltip-arrow::before {
-        border-right-color: #FFFFFF; /* Putih Utama */
+        border-right-color: var(--card-border);
     }
 
     /* Mengatur lebar konten agar tetap seimbang dengan sidebar yang lebih ramping */

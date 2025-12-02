@@ -29,7 +29,7 @@
                         <div class="col-md-4">
                             <div class="small mb-1" style="color: #6B7280;">Status</div>
                             <div>
-                                <span class="badge" style="background-color: rgba(234, 179, 8, 0.25); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.4);">
+                                <span class="badge" style="background-color: #fef3c7; color: #92400e; border: 1px solid #f59e0b; font-weight: 600;">
                                     <i class="bi bi-clock-history me-1"></i> Menunggu Pembayaran
                                 </span>
                             </div>

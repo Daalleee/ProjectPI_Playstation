@@ -18,7 +18,7 @@
     </div>
 
     @if(session('status'))
-        <div class="alert alert-success border-0" style="background-color: rgba(34, 197, 94, 0.25); color: #6ee7b7; border: 1px solid rgba(34, 197, 94, 0.4);">
+        <div class="alert d-flex align-items-center rounded-3" style="background-color: #d1fae5; color: #065f46; border: 1px solid #10b981;">
             <i class="bi bi-check-circle-fill me-2 fs-5"></i>
             <div>{{ session('status') }}</div>
         </div>
@@ -45,7 +45,7 @@
                         <div class="p-3 rounded" style="background-color: #F5F6FA; border: 1px solid #E5E7EB;">
                             <small class="d-block text-uppercase fw-bold" style="color: #6B7280; font-size: 0.7rem;">Status Akun</small>
                             <div class="d-flex align-items-center gap-2 mt-1">
-                                <span class="badge" style="background-color: rgba(34, 197, 94, 0.25); color: #6ee7b7; border: 1px solid rgba(34, 197, 94, 0.4);">Aktif</span>
+                                <span class="badge" style="background-color: #d1fae5; color: #065f46; border: 1px solid #10b981; font-weight: 600;">Aktif</span>
                                 <i class="bi bi-shield-check ms-auto" style="color: #22c55e;"></i>
                             </div>
                         </div>
@@ -110,12 +110,12 @@
                     </div>
 
                     @if(empty($user->phone) || empty($user->address))
-                        <div class="alert alert-warning border-0" style="background-color: rgba(234, 179, 8, 0.25); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.4); margin-top: 1rem; margin-bottom: 0; display: flex; align-items: flex-start;">
+                        <div class="alert rounded-3" style="background-color: #fef3c7; color: #92400e; border: 1px solid #f59e0b; margin-top: 1rem; margin-bottom: 0; display: flex; align-items: flex-start;">
                             <i class="bi bi-exclamation-triangle-fill me-3 fs-4 mt-1"></i>
                             <div>
-                                <h6 class="fw-bold mb-1" style="color: #222222;">Profil Belum Lengkap</h6>
-                                <p class="mb-2 small" style="color: #6B7280;">Mohon lengkapi <strong>Nomor Telepon</strong> dan <strong>Alamat</strong> Anda untuk dapat melakukan penyewaan unit atau game.</p>
-                                <a href="{{ route('pelanggan.profile.edit') }}" class="btn btn-sm btn-warning fw-bold" style="color: #222222;">Lengkapi Sekarang</a>
+                                <h6 class="fw-bold mb-1" style="color: #92400e;">Profil Belum Lengkap</h6>
+                                <p class="mb-2 small" style="color: #78350f;">Mohon lengkapi <strong>Nomor Telepon</strong> dan <strong>Alamat</strong> Anda untuk dapat melakukan penyewaan unit atau game.</p>
+                                <a href="{{ route('pelanggan.profile.edit') }}" class="btn btn-sm btn-warning fw-bold" style="color: #78350f;">Lengkapi Sekarang</a>
                             </div>
                         </div>
                     @endif
